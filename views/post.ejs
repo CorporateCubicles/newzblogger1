@@ -8,7 +8,7 @@
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="fw-bolder mb-1"><%= post.title %></h1>
+                            <h1 class="fw-bolder mb-1"><%=post.title %></h1>
                             <!-- Post meta content-->
                             <div class="text-muted fst-italic mb-2">By newzBlogger Admin</div>
                             <!-- Post categories-->
@@ -27,7 +27,26 @@
                         <div class="card bg-light">
                             <div class="card-body">
                                 <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                                 <h4>Add Comments</h4>
+                                <form class="mb-4" id="comment-form" name="comment-form">
+                                    <input type="hidden" name="post_id" value="<%=post._id %>">
+                                    <input type="text" name="username" placeholder="Enter Your Name" required class="form-control mb-3">
+                                    <textarea class="form-control" name="comment" required rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+                                    <input type="submit" class="btn btn-primary mt-3">
+                                </form>
+
+                                
+                                <!-- <form class="mb-4" id="comment-form" name="comment-form">
+                                    <input type="hidden" id="post_id" name="post_id" value="<%= post._id %>">
+                                    
+                                    <input type="text" id="username" name="username" placeholder="Enter Your Name" required class="form-control mb-3" autocomplete="name">
+                                    
+                                    <textarea id="comment" name="comment" required rows="3" placeholder="Join the discussion and leave a comment!" autocomplete="off"></textarea>
+                                    
+                                    <input type="submit" class="btn btn-primary mt-3">
+                                </form> -->
+                                
+                                <p class="com-status" style="color: green;"></p>
                                 <!-- Comment with nested comments-->
                                 <div class="d-flex mb-4">
                                     <!-- Parent comment-->
@@ -80,5 +99,28 @@
                 </div>
             </div>
         </div>
+        <script>
+            $(document).ready(function(){
+                $('#comment-form').submit(function(event){
+                    event.preventDefault();
+
+                    const formData = $(this).serialize();
+
+                    $.ajax({
+                        url:"/add-comment",
+                        type:"POST",
+                        data: formData,
+                        success: function(data){
+                            console.log(data);
+                            // $('.com-status').text(data.msg);
+                            // setTimeout(function(){
+                            //     $('.com-status').text('');
+                            // },5000);
+                        }
+                       
+                    });
+                });
+            });
+        </script>
 
 <%- include('./layouts/footer.ejs')%>

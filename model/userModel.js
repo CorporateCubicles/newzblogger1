@@ -16,9 +16,11 @@ const userModel = mongoose.Schema({
     is_admin:{
         type: String,
         required: true
+    },
+    token:{
+        type:String,
+        required:false
     }
-
-
 });
 
 const user = mongoose.model('user',userModel );

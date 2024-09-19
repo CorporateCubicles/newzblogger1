@@ -167,6 +167,7 @@ module.exports = {
     blogSetUp,
     dashboard,
     loadPostdashboard,
-    addPost
+    addPost,
+    securePassword
 
 }
